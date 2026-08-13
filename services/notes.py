@@ -19,7 +19,7 @@ def create_folder(title, parent_id=None):
             type,
             title
         )
-        VALUES (?, 'folder', ?)
+        VALUES (%s, 'folder', %s)
         """,
         (parent_id, title)
     )
@@ -38,7 +38,7 @@ def create_note(title, content="", parent_id=None):
             title,
             content
         )
-        VALUES (?, 'note', ?, ?)
+        VALUES (%s, 'note', %s, %s)
         """,
         (
             parent_id,
@@ -130,8 +130,8 @@ def update_node(node_id, title=None, content=None):
         """
         UPDATE nodes
         SET
-            title = ?,
-            content = ?
+            title = %s,
+            content = %s
         WHERE id = %s
         """,
         (
@@ -152,7 +152,7 @@ def rename_node(node_id, new_title):
     execute(
         """
         UPDATE nodes
-        SET title = ?
+        SET title = %s
         WHERE id = %s
         """,
         (
@@ -172,7 +172,7 @@ def move_node(node_id, new_parent_id):
     execute(
         """
         UPDATE nodes
-        SET parent_id = ?
+        SET parent_id = %s
         WHERE id = %s
         """,
         (
@@ -222,8 +222,8 @@ def search_notes(keyword):
         SELECT *
         FROM nodes
         WHERE
-            title LIKE ?
-            OR content LIKE ?
+            title LIKE %s
+            OR content LIKE %s
         ORDER BY title
         """,
         (
