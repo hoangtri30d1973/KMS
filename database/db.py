@@ -21,18 +21,17 @@ def execute(query, params=None):
     finally:
         conn.close()
         
-
-
-def fetch_one(query, params=()):
-    """
-    Lấy một bản ghi.
-    """
+def fetch_one(query, params=None):
     conn = get_connection()
-
     try:
-        cursor = conn.cursor()
-        cursor.execute(query, params)
-        return cursor.fetchone()
+        cur = conn.cursor()
+        cur.execute(
+            query,
+            params or ()
+        )
+        row = cur.fetchone()
+
+        return row
 
     finally:
         conn.close()
