@@ -61,7 +61,7 @@ def sync_wiki_links(
             SELECT id
             FROM nodes
             WHERE
-                title = ?
+                title = %s
                 AND type = 'note'
             """,
             (title,)
@@ -154,7 +154,7 @@ def get_note_by_title(title):
         SELECT *
         FROM nodes
         WHERE
-            title = ?
+            title = %s
             AND type = 'note'
         """,
         (title,)
