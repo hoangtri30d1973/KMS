@@ -1,39 +1,26 @@
-import sqlite3
-from pathlib import Path
+import streamlit as st
+import psycopg2
 
-# Đường dẫn thư mục dự án
-BASE_DIR = Path(__file__).resolve().parent.parent
-
-# File database
-DB_PATH = BASE_DIR / "data" / "notes.db"
-
-DB_PATH.parent.mkdir(parents=True, exist_ok=True)
 
 def get_connection():
 
-    conn = sqlite3.connect(DB_PATH)
+    return psycopg2.connect(
+        st.secrets["DATABASE_URL"]
+    )
 
-    conn.row_factory = sqlite3.Row
-
-    conn.execute("PRAGMA foreign_keys = ON")
-
-    return conn
-
-
-def execute(query, params=()):
-    """
-    Thực thi INSERT/UPDATE/DELETE.
-    """
+def execute(query, params=None):
     conn = get_connection()
-
     try:
-        cursor = conn.cursor()
-        cursor.execute(query, params)
+        cur = conn.cursor()
+        cur.execute(
+            query,
+            params or ()
+        )
         conn.commit()
-        return cursor.lastrowid
 
     finally:
         conn.close()
+        
 
 
 def fetch_one(query, params=()):
