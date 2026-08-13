@@ -3,8 +3,7 @@ from database.db import execute
 def create_nodes_table():
     query = """
     CREATE TABLE IF NOT EXISTS nodes (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-
+        id SERIAL PRIMARY KEY,
         parent_id INTEGER,
 
         type TEXT NOT NULL
@@ -31,7 +30,7 @@ def create_tags_table():
 
     execute("""
     CREATE TABLE IF NOT EXISTS tags (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        id SERIAL PRIMARY KEY,
         name TEXT NOT NULL UNIQUE
     )
     """)
@@ -58,9 +57,7 @@ def create_wiki_links_table():
 
     execute("""
     CREATE TABLE IF NOT EXISTS wiki_links (
-
         source_note_id INTEGER NOT NULL,
-
         target_note_id INTEGER NOT NULL,
 
         PRIMARY KEY (
