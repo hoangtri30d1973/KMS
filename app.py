@@ -169,6 +169,11 @@ with right:
 
     node_id = st.session_state.selected_node_id
 
+    if "current_folder_id" not in st.session_state:
+        st.session_state.current_folder_id = None
+
+    else:
+        
     if not node_id:
 
         st.info("Select a note from the tree.")
