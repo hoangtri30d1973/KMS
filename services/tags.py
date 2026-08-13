@@ -27,7 +27,7 @@ def save_note_tags(note_id, tags):
     execute(
         """
         DELETE FROM note_tags
-        WHERE note_id = ?
+        WHERE note_id = %s
         """,
         (note_id,)
     )
@@ -49,7 +49,7 @@ def save_note_tags(note_id, tags):
             """
             SELECT id
             FROM tags
-            WHERE name = ?
+            WHERE name = %s
             """,
             (tag_name,)
         )
@@ -82,7 +82,7 @@ def get_note_tags(note_id):
         JOIN note_tags nt
             ON nt.tag_id = t.id
 
-        WHERE nt.note_id = ?
+        WHERE nt.note_id = %s
 
         ORDER BY t.name
         """,
