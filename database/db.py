@@ -1,12 +1,14 @@
 import streamlit as st
 import psycopg2
 
+from psycopg2.extras import RealDictCursor
 
 def get_connection():
-
     return psycopg2.connect(
-        st.secrets["DATABASE_URL"]
+        st.secrets["DATABASE_URL"],
+        cursor_factory=RealDictCursor
     )
+
 
 def execute(query, params=None):
     conn = get_connection()
