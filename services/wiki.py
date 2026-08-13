@@ -47,7 +47,7 @@ def sync_wiki_links(
     execute(
         """
         DELETE FROM wiki_links
-        WHERE source_note_id = ?
+        WHERE source_note_id = %s
         """,
         (source_note_id,)
     )
@@ -105,7 +105,7 @@ def get_outgoing_links(note_id):
         JOIN nodes n
             ON n.id = wl.target_note_id
 
-        WHERE wl.source_note_id = ?
+        WHERE wl.source_note_id = %s
 
         ORDER BY n.title
         """,
@@ -132,7 +132,7 @@ def get_backlinks(note_id):
         JOIN nodes n
             ON n.id = wl.source_note_id
 
-        WHERE wl.target_note_id = ?
+        WHERE wl.target_note_id = %s
 
         ORDER BY n.title
         """,
