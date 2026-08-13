@@ -43,6 +43,7 @@ st.markdown("""
     padding: 20px;
     background-color: whitesmoke;
     margin-bottom: 20px;
+    text-align: justify;
 }
 
 </style>
