@@ -61,7 +61,7 @@ def get_node(node_id):
         """
         SELECT *
         FROM nodes
-        WHERE id = ?
+        WHERE id = %s
         """,
         (node_id,)
     )
@@ -77,7 +77,7 @@ def get_children(parent_id):
         """
         SELECT *
         FROM nodes
-        WHERE parent_id = ?
+        WHERE parent_id = %s
         ORDER BY
             CASE
                 WHEN type = 'folder' THEN 0
@@ -132,7 +132,7 @@ def update_node(node_id, title=None, content=None):
         SET
             title = ?,
             content = ?
-        WHERE id = ?
+        WHERE id = %s
         """,
         (
             title,
@@ -153,7 +153,7 @@ def rename_node(node_id, new_title):
         """
         UPDATE nodes
         SET title = ?
-        WHERE id = ?
+        WHERE id = %s
         """,
         (
             new_title,
@@ -173,7 +173,7 @@ def move_node(node_id, new_parent_id):
         """
         UPDATE nodes
         SET parent_id = ?
-        WHERE id = ?
+        WHERE id = %s
         """,
         (
             new_parent_id,
@@ -198,7 +198,7 @@ def delete_node(node_id):
     execute(
         """
         DELETE FROM nodes
-        WHERE id = ?
+        WHERE id = %s
         """,
         (node_id,)
     )
@@ -264,7 +264,7 @@ def build_tree(parent_id=None):
             """
             SELECT *
             FROM nodes
-            WHERE parent_id = ?
+            WHERE parent_id = %s
             ORDER BY
                 CASE
                     WHEN type = 'folder' THEN 0
