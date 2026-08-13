@@ -40,7 +40,7 @@ def save_note_tags(note_id, tags):
             """
             INSERT OR IGNORE
             INTO tags(name)
-            VALUES(?)
+            VALUES(%s)
             """,
             (tag_name,)
         )
@@ -63,7 +63,7 @@ def save_note_tags(note_id, tags):
                     note_id,
                     tag_id
                 )
-                VALUES (?, ?)
+                VALUES (%s, %s)
                 """,
                 (
                     note_id,
